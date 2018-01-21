@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { MatTableDataSource } from '@angular/material';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { MatTableDataSource, MatPaginator } from '@angular/material';
 
 @Component({
   selector: 'app-video',
@@ -12,9 +12,16 @@ export class VideoComponent implements OnInit {
   displayedColumns = ['position', 'name', 'weight', 'symbol'];
   dataSource = new MatTableDataSource<Element>(ELEMENT_DATA);
 
+  @ViewChild(MatPaginator) paginator: MatPaginator;
+
   constructor() { }
 
   ngOnInit() {
+  }
+
+
+  ngAfterViewInit() {
+    this.dataSource.paginator = this.paginator;
   }
 
 }
