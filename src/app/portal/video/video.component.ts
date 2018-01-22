@@ -1,5 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatTableDataSource, MatPaginator } from '@angular/material';
+import { DataService } from '../../shared/data.service'
 
 @Component({
   selector: 'app-video',
@@ -9,14 +10,23 @@ import { MatTableDataSource, MatPaginator } from '@angular/material';
 
 export class VideoComponent implements OnInit {
 
-  displayedColumns = ['position', 'name', 'weight', 'symbol'];
-  dataSource = new MatTableDataSource<Element>(ELEMENT_DATA);
+  displayedColumns = ['symbol', 'title', 'description', 'publishedAt'];
+  dataSource: any = new MatTableDataSource();
+  results: any;
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
 
-  constructor() { }
+  constructor(private dataService: DataService) { }
 
   ngOnInit() {
+    this.dataService.getService().subscribe(data => {
+      // Read the result field from the JSON response.
+      this.results = data;
+      this.dataSource.data = this.results.items;
+    },
+      err => {
+        console.log('Something went wrong!');
+      });;
   }
 
 
