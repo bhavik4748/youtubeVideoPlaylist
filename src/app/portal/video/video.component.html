@@ -1,4 +1,10 @@
 <div class="example-container mat-elevation-z8">
+  <form>
+    <mat-form-field>
+      List length:
+      <input matInput [(ngModel)]="length" name="len">
+    </mat-form-field>
+  </form>
   <mat-table #table [dataSource]="dataSource">
 
     <!--- Note that these columns can be defined in any order.
@@ -27,13 +33,11 @@
       <mat-cell *matCellDef="let element"> {{element.snippet.publishedAt | date}} </mat-cell>
     </ng-container>
 
-
-
-
     <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
     <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
   </mat-table>
-  <mat-paginator #paginator [pageSize]="10" [pageSizeOptions]="[5, 10, 20]">
+
+  <mat-paginator #paginator [length]="length" [pageSize]="10" [pageSizeOptions]="[5, 10, 20]">
   </mat-paginator>
 </div>
 
