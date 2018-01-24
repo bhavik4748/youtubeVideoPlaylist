@@ -13,11 +13,13 @@ import { PageEvent } from '@angular/material';
 
 export class VideoComponent implements OnInit {
 
-  length: any = 100;
+  length: any = 0;
   displayedColumns = ['symbol', 'title', 'description', 'publishedAt'];
   dataSource: any = new MatTableDataSource();
   results: any;
   pageEvent: PageEvent;
+  nextPage: any;
+  prevPage: any;
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
 
@@ -25,22 +27,21 @@ export class VideoComponent implements OnInit {
 
   ngOnInit() {
     this.dataService.getService().subscribe(data => {
-      // Read the result field from the JSON response.
+      // Read the result field from the JSON response.      
       this.results = data;
+      this.nextPage = this.results.nextPageToken;
+      this.prevPage = this.results.prevPageToken;
       this.dataSource.data = this.results.items;
-      this.length = 100;
-      setTimeout(function () { this.length = 100; }, 100);
+      this.length = this.results.pageInfo.totalResults;
     },
       err => {
         console.log('Something went wrong!');
-      });;
+      });
   }
-
 
   ngAfterViewInit() {
-    this.dataSource.paginator = this.paginator;
+    this.paginator._length = this.length;
   }
+  
 
 }
-
-
