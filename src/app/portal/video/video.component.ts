@@ -1,7 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatTableDataSource, MatPaginator } from '@angular/material';
 import { DataService } from '../../shared/data.service';
-import { FormsModule } from '@angular/forms';
 
 import { PageEvent } from '@angular/material';
 
@@ -20,13 +19,24 @@ export class VideoComponent implements OnInit {
   pageEvent: PageEvent;
   nextPage: any;
   prevPage: any;
+  currPage: any;
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
 
   constructor(private dataService: DataService) { }
 
   ngOnInit() {
-    this.dataService.getService().subscribe(data => {
+    this.getDataFromServiceFunc(undefined);
+  }
+
+  ngAfterViewInit() {
+    this.paginator._length = this.length;
+    this.currPage = this.paginator._pageIndex;
+    // console.log(' this.currPage =>' + this.currPage);
+  }
+
+  getDataFromServiceFunc(pageToken?: string) {
+    this.dataService.getService(pageToken).subscribe(data => {
       // Read the result field from the JSON response.      
       this.results = data;
       this.nextPage = this.results.nextPageToken;
@@ -39,9 +49,14 @@ export class VideoComponent implements OnInit {
       });
   }
 
-  ngAfterViewInit() {
-    this.paginator._length = this.length;
+  pageChange($event) {
+    if (this.currPage < $event.pageIndex)
+      this.getDataFromServiceFunc(this.nextPage);
+    else
+      this.getDataFromServiceFunc(this.prevPage);
+
+    this.pageEvent = $event;
+    this.currPage = $event.pageIndex;
   }
-  
 
 }

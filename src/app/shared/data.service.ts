@@ -17,7 +17,6 @@ export class DataService implements OnInit {
 
   ngOnInit(): void {
     // Make the HTTP request:
-
   };
 
   getService(pageToken?: string) {
