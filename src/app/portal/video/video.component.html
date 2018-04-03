@@ -5,7 +5,7 @@
     <ng-container matColumnDef="symbol">
       <mat-header-cell *matHeaderCellDef> Thumbnail </mat-header-cell>
       <mat-cell *matCellDef="let element">
-        <img src="{{element.snippet.thumbnails.default.url}}"> </mat-cell>
+      <a ng-src=""> <img src="{{element.snippet.thumbnails.default.url}}"></a>  </mat-cell>
     </ng-container>
 
 
