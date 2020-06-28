@@ -24,7 +24,7 @@ export class DataService implements OnInit {
     this.url = "https://www.googleapis.com/youtube/v3/search";
     this.part = "snippet";
     this.channelId = "UCbn1OgGei-DV7aSRo_HaAiw";
-    this.key = "AIzaSyA8OHCyYSR7aFsJXsna7TumltQ0v56rUWU";
+    this.key = "AIzaSyC2T9sBuUtwXfk88UKvtUe69OyAh7kpgWs";
     this.maxResults = 10;
     this.order = "date";
     this.serviceApi = this.url + "?part=" + this.part + "&channelId=" + this.channelId + "&key=" + this.key + "&maxResults=" + this.maxResults + "&order=" + this.order + (pageToken != undefined ? "&pageToken=" + pageToken : '');
