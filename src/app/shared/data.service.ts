@@ -1,5 +1,6 @@
 import { Injectable, OnInit } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { environment } from '../../environments/environment';
 
 @Injectable()
 export class DataService implements OnInit {
@@ -21,13 +22,13 @@ export class DataService implements OnInit {
 
   getService(pageToken?: string) {
 
-    this.url = "https://www.googleapis.com/youtube/v3/search";
-    this.part = "snippet";
-    this.channelId = "UCbn1OgGei-DV7aSRo_HaAiw";
-    this.key = "AIzaSyC2T9sBuUtwXfk88UKvtUe69OyAh7kpgWs";
+    this.url = environment.url;
+    this.part = `snippet`;
+    this.channelId = environment.channelId;
+    this.key = environment.key;
     this.maxResults = 10;
-    this.order = "date";
-    this.serviceApi = this.url + "?part=" + this.part + "&channelId=" + this.channelId + "&key=" + this.key + "&maxResults=" + this.maxResults + "&order=" + this.order + (pageToken != undefined ? "&pageToken=" + pageToken : '');
+    this.order = `date`;
+    this.serviceApi = this.url + `?part=` + this.part + `&channelId=` + this.channelId + `&key=` + this.key + `&maxResults=` + this.maxResults + `&order=` + this.order + (pageToken != undefined ? `&pageToken=` + pageToken : ``);
     return this.http.get(this.serviceApi);
   }
 }
